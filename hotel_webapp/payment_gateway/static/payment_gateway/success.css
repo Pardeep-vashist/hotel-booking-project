@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Geist", serif;
+    padding: 20px 10px;
+    min-height: 100vh;
+    
+}
+
+
+/* #main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+} */
+
+#booking-confirmation-card {
+    width: 60vw;
+    min-height: 80vh;
+    /* border: 1px solid; */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 5px 15px rgba(149, 157, 165, 0.2);
+    
+}
+
+#booking-confirmation-heading {
+    display: flex;
+    background-color: #16a34a;
+    color: #fff;
+    width: 100%;
+    padding: 10px 20px;
+    
+}
+
+#booking-confirmation-heading span {
+    margin-left: 10px;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+
+/* Booking Confirmation Body Css start */
+
+#booking-confirmation-body {
+    padding: 20px 20px;
+}
+
+
+.subheading {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.sub-sub-heading {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.details-container {
+    margin-top: 15px;
+}
+
+#reservation-details {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2,1fr);
+}
+
+.reservation-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.user-registration-data {
+    font-weight: 500;
+}
+
+#additional-information-container {
+    margin-top: 20px;
+}
+
+#price-breakdown-container {
+    margin-top: 20px;
+}
+
+
+#price-breakdown-details {
+    background-color: #f9fafb;
+    padding: 10px;
+}
+
+#price-breakdown-details div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#additioal-information-details li{
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: rgb(102, 99, 99);
+}
+
+
+#need-help-container {
+    margin-top: 20px;
+}
+
+#need-help-details {
+    display: flex;
+    gap: 10px;
+}
+
+#need-help-details div {
+    display: flex;
+    gap: 5px;
+}
+
+
+@media screen and (max-width:780px) {
+    #reservation-details {
+        grid-template-columns: repeat(1,1fr);
+        grid-template-rows: repeat(4,1fr);
+    }
+    #need-help-details {
+        flex-direction: column;
+    }
+}
+
+
+@media screen and (max-width:480px) {
+    #booking-confirmation-card {
+        width: 90vw;
+    }
+}
+
+/* Booking Confirmation Body Css end */

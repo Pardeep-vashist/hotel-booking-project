@@ -1,0 +1,623 @@
+/* for hotel homepage image below header */
+#hotel-front {
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: 0;
+    position: relative;
+}
+
+#hotel-front-image {
+    object-fit: cover;
+    width: 100%;
+    margin-top: 1.2rem;
+    height: 450px;
+}
+
+#front-content p:nth-of-type(1) {
+    color: #fff;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    font-size: 60px;
+    top: 38%;
+}
+
+#front-content p:nth-of-type(2) {
+    top: 53%;
+    position: absolute;
+    color: #fff;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    letter-spacing: 5px;
+    font-weight: 100;
+    line-height: 2;
+}
+
+#front-discover {
+    position: absolute;
+    top: 64%;
+    width: 100%;
+    text-align: center;
+}
+
+#front-discover a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #AB8A62;
+    padding: 10px 15px;
+}
+
+/* for checking availability form  */
+.check-availability {
+    /* display: flex; */
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    gap: 40px;
+    /* border: 1px solid black; */
+    box-shadow: 0 0 5px #e9e2e2;
+    margin: -46px auto 35px auto;
+    /* padding-bottom: 30px; */
+    /* padding-top: 25px; */
+    padding: 25px 30px 30px 30px;
+    z-index: 1;
+    background-color: #fff;
+    /* width: 90%; */
+    border-radius: 5px;
+}
+
+.check-now {
+    padding-top: 10px;
+}
+
+.check-now label {
+    display: block;
+    /* width: 100%; */
+    /* margin-bottom: 2px; */
+}
+
+.check-now input {
+    /* width: 100%; */
+    /* border: 0;
+    border-bottom: 2px solid #AB8A62; */
+    font-size: 15px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+#check-now-btn button {
+    border: none;
+    outline: none;
+    font-size: 15px;
+    padding: 5px 8px;
+    border-radius: 10px;
+    margin-top: 22px;
+    /* height: 30px; */
+    text-align: center;
+    background-color: #AB8A62;
+    color: #fff;
+    padding: 5px 15px;
+}
+
+/* room card on homepage css start */
+
+.room-cards {
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.room-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.room-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.room-info {
+    padding: 15px;
+}
+
+.room-info h2 {
+    font-size: 25px;
+    margin-bottom: 10px;
+    font-family: 'Jost', serif;
+    font-weight: 600;
+}
+
+.bottom {
+    margin-bottom: 7px;
+}
+
+.room-info span {
+    font-size: 15px;
+    color: #000;
+    font-family: 'Jost', serif;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #000;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.pricing {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-family: 'Jost', serif;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #AB8A62;
+}
+
+.view-detail {
+    font-size: 15px;
+    color: #000;
+    text-decoration: none;
+    transition: .5s;
+    background-color: #AB8A62;
+    border: 1px solid #AB8A62;
+    padding: 10px 30px;
+    font-weight: 600;
+}
+
+.view-detail:hover {
+    color: #000;
+    background: transparent;
+    border: 1px solid #AB8A62;
+}
+
+/* room card on homepage css end */
+
+/* dynamic add room field */
+.icon-button,
+.round-button-for-add-or-minus-room {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+.form-control {
+    width: 100%;
+    /* Fixed width for consistency */
+}
+
+.input-container button {
+    margin-left: 5px;
+    /* Gap between minus and input */
+    margin-right: 5px;
+    /* Gap between input and plus */
+}
+
+.room-container {
+    margin-bottom: 15px;
+}
+
+/* Small button for Room 1 with just a cross icon */
+.remove-room-small {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+/* Button with text for Room 2-5 */
+.remove-room-large {
+    /* width: 100%; */
+    margin-top: 25px;
+    padding: 4px;
+    width: auto !important;
+    height: auto !important;
+}
+
+/* Gallery page css start */
+
+#gallery_background {
+    background-image: url('/static/accommodation/gallery/gallery-background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 140px;
+    padding-bottom: 140px;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.gallery_title {
+    font-family: 'Marcellus', sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 62px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+#gallery_img {
+    margin-bottom: 30px;
+    border-radius: 15px;
+}
+
+/* Gallery page css end */
+
+@media screen and (min-width:320px) and (max-width:990px) {
+
+    #hotel-front-image {
+        margin-top: -7px;
+    }
+
+    #front-content p:nth-of-type(1) {
+        font-size: 20px;
+    }
+
+    #front-content p:nth-of-type(2) {
+        font-size: 10px;
+    }
+
+    #front-discover a {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+
+    .check-availability {
+        flex-direction: column;
+        gap: 0;
+        margin-top: -80px;
+    }
+}
+
+
+/* Contact Us Css start */
+a,
+p,
+li,
+ul {
+    font-family: 'Jost', sans-serif;
+}
+
+#left {
+    padding: 7vw 6.5vw 4vw 6.5vw;
+}
+
+.contact_title {
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+    font-weight: 500;
+    color: #53624e;
+}
+
+.contact_heading {
+    font-family: 'Marcellus', serif;
+    font-size: 36px;
+    margin-top: 20px;
+}
+
+.location {
+    color: #333632;
+    font-size: 18px;
+    font-family: 'Jost', sans-serif;
+    margin-top: 20px;
+}
+
+.email {
+    color: #333632;
+    font-size: 18px;
+    font-family: 'Jost', sans-serif;
+}
+
+.border_bottom {
+    border-bottom: 1px solid #000;
+    margin: 4pc 0 4pc 0;
+}
+
+.google_map {
+    width: 100%;
+}
+
+#right_background {
+    /* background-image: url("assets/img/background.jpg"); */
+    background-image: url('/static/accommodation/gallery/background.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 5vw 7vw 3vw 7vw;
+}
+
+.contact_form {
+    background-color: #fff;
+    padding: 4vw 4vw 4vw 4vw;
+}
+
+.form_title {
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+    font-weight: 500;
+    color: #53624e;
+    text-align: center;
+}
+
+.form_heading {
+    font-family: 'Marcellus', serif;
+    font-size: 36px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+form input,
+form textarea {
+    width: 100%;
+    height: 52px;
+    padding: 5px 15px;
+    background: none;
+    border-color: #0000001f;
+    border-style: solid;
+    border-width: 1px;
+    color: #1a1b1a;
+    font-size: 16px;
+    font-size: 1rem;
+    line-height: 2;
+    font-weight: 400;
+    transition: 0.3s;
+    margin-bottom: 15px;
+}
+
+form textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.submit-btn {
+    width: 100%;
+    height: 52px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: var(--form-radius);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Mobile devices (phones, up to 767px) */
+@media only screen and (max-width: 767px) {
+    .google_map {
+        width: 100%;
+    }
+
+    .contact_form {
+        padding: 10vw 10vw 10vw 10vw;
+    }
+
+    #contact-margin {
+        margin-top: 145px !important;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .google_map {
+        width: 100%;
+    }
+
+    .contact_form {
+        padding: 10vw 10vw 10vw 10vw;
+    }
+
+}
+
+#contact-margin {
+    margin-top: 67px !important;
+}
+
+/* Contact Us Css End */
+
+.input-field div input {
+    height: auto !important;
+}
+
+/* About us page css start */
+#about_background {
+    /* background-image: url('assets/img/about-background.webp'); */
+    background-image: url(/static/accommodation/gallery/about-background.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 140px;
+    padding-bottom: 140px;
+    margin-bottom: 80px;
+    position: relative;
+}
+
+.about_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.596);
+    z-index: 1;
+}
+
+.about_head_title {
+    font-family: 'Marcellus', sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 62px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.about_head_para {
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+}
+
+#about-img {
+    width: 95%;
+    margin-top: 50px;
+    height: 85%;
+}
+
+#right {
+    padding-right: 60px;
+}
+
+.about_title {
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 15px;
+    font-weight: 500;
+    color: #53624e;
+}
+
+.about_heading {
+    font-family: 'Marcellus', serif;
+    font-size: 55px;
+}
+
+#counter_border {
+    border: 1px solid #A059161A;
+    padding: 10px 0 0 20px;
+}
+
+.counter_title {
+    font-family: 'Marcellus', sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 32px;
+    font-weight: 600;
+    color: #AB8A62;
+}
+
+.counter_paragraph {
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    font-size: 15px;
+    color: #000;
+}
+
+.book-now {
+    font-size: 18px;
+    color: #000;
+    text-decoration: none;
+    transition: .5s;
+    background-color: #AB8A62;
+    border: 1px solid #AB8A62;
+    padding: 15px 45px;
+    font-weight: 600;
+}
+  
+.book-now:hover {
+    color: #000;
+    background: transparent;
+    border: 1px solid #AB8A62;
+}
+
+#top {    
+    margin-top: 100px;
+    position: relative;
+}
+
+#top::before {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    background-color: #f1f1f1;
+    z-index: -1;
+    top: 0;
+    left: auto;
+    right: 40%;
+}
+
+#facilities_background {
+    padding: 8pc 5pc 5pc 4pc;
+}
+
+.facilities_heading {
+    font-family: 'Marcellus', serif;
+    font-size: 55px;
+}
+
+.facilities_title {
+    font-family: 'Marcellus', serif;
+    letter-spacing: 0.1em;
+    font-size: 19px;
+    font-weight: 500;
+    color: #000;
+    margin-top: 25px;
+    font-weight: 600;
+}
+
+.facilities_paragraph {
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 15px;
+    color: #000;
+}
+
+#facilities_img {
+    width: 85%;
+    margin-top: 50px;
+    height: 85%;
+}
+
+/* About us page css end */

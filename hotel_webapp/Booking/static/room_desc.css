@@ -1,0 +1,74 @@
+#room-desc div {
+    margin-bottom: 8px;
+}
+
+.book-form-field {
+    margin: 10px 0 0 0;
+}
+
+.book-form-btn {
+    padding:2px 8px;
+    background-color: #AB8A62;
+    color: #ffff;
+    border: none;
+}
+
+@media screen and (max-width:420px) {
+    .header-margin {
+        margin-top: 9rem !important;
+    }
+}
+
+@media screen and (min-width:421px) and (max-width:590px) {
+    .header-margin {
+        margin-top: 10rem !important;
+    } 
+}
+
+@media screen and (min-width:591px) and (max-width:750px) {
+    .header-margin {
+        margin-top: 3.5rem !important;
+    } 
+}
+
+@media screen and (min-width:751px) and (max-width:950px) {
+    .header-margin {
+        margin-top: 4.5rem !important;
+    } 
+}
+
+@media screen and (min-width:951px) and (max-width:990px) {
+    .header-margin {
+        margin-top: 5.5rem !important;
+    } 
+}
+
+@media screen and (min-width:990px) and (max-width:991px) {
+    .header-margin {
+        margin-top: 7rem !important;
+    } 
+}
+
+@media screen and (min-width:992px) and (max-width:1055px) {
+    .header-margin {
+        margin-top: 8.5rem !important;
+    } 
+}
+
+@media screen and (min-width:992px) and (max-width:1055px) {
+    .header-margin {
+        margin-top: 8.5rem !important;
+    } 
+}
+
+@media screen and (min-width:1056px) and (max-width:1300px) {
+    .header-margin {
+        margin-top: 6rem !important;
+    } 
+}
+
+@media screen and (min-width:1301px) and (max-width:1400px) {
+    .header-margin {
+        margin-top: 6rem !important;
+    } 
+}

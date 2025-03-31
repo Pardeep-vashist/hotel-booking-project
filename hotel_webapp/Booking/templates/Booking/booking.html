@@ -1,0 +1,674 @@
+{% extends 'hotel/base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'hotel/css/front.css' %}">
+<link rel="stylesheet" href="{% static 'Booking/css/room_desc.css' %}">
+<style>
+    .icon-button {
+        border-radius: 50% !important;
+        width: 30px !important;
+        height: 30px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 18px !important;
+        cursor: pointer !important;
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .form-control {
+        width: 100%;
+        /* Fixed width for consistency */
+    }
+
+    .input-container button {
+        margin-left: 5px !important;
+        /* Gap between minus and input */
+        margin-right: 5px !important;
+        /* Gap between input and plus */
+    }
+
+    .room-container {
+        margin-bottom: 15px;
+    }
+
+    /* Small button for Room 1 with just a cross icon */
+    .remove-room-small {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        font-size: 20px;
+        border-radius: 50%;
+    }
+
+    /* Button with text for Room 2-5 */
+    .remove-room-large {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .accommodate-more-people {
+        /* width: 150px ! IMPORTANT; */
+        display: inline-block;
+        border-radius: 5px;
+        /* background-color: rgba(243, 64, 64, 0.956);  */
+        color: rgb(237 8 8);
+        font-weight: 500;
+        font-size: 17px;
+
+    }
+
+    .required {
+        color: red;
+    }
+</style>
+{% endblock head %}
+
+{% block content %}
+<!-- <br><br><br><br> -->
+<div class="container header-margin">
+    <div class="row">
+        <h1 id="room-type" style="text-align: center;">{{room_name}}</h1>
+    </div>
+
+    <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+        <!-- Indicators/dots -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="3"></button>
+        </div>
+
+        <!-- The slideshow/carousel -->
+        <div class="carousel-inner">
+            {% for img in room_category_images %}
+            <div class="carousel-item active">
+                <img class="d-block" style="width:100%;height:400px;object-fit: cover;" height="400px"
+                    src="{{img.image.url}}">
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+</div>
+
+<br><br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="room-desc" class="row">
+                {% for amenity in amenities %}
+                <div class="col-md-4">
+                    <img width="24" height="24" style="object-fit: contain;" src="{{amenity.icons.url}}" alt="">
+                    </i>&nbsp;{{amenity}}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- <div style="margin-top:1rem"></div> -->
+    <div class="row">
+        <div class="col-md-12">
+            <form method="POST" class="booking-form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-3 book-form-field">
+                        <label for="fname"> First Name <span class="required">*</span></label>
+                        <input class="form-control" id="fname" type="text" required>
+                    </div>
+
+                    <div class="col-md-3 book-form-field">
+                        <label for="lname"> Last Name <span class="required">*</span></label>
+                        <input id="lname" class="form-control" type="text" required>
+                    </div>
+
+                    <div class="col-md-3 book-form-field">
+                        <label for="phone-no">Phone No <span class="required">*</span></label>
+                        <input id="phone-no" class="form-control" name="phone_no" type="tel" max=10 required>
+                    </div>
+
+                    <div class="col-md-3 book-form-field">
+                        <label for="email">Email <span class="required">*</span></label>
+                        <input id="email" class="form-control" name="email" type="email" required>
+                    </div>
+
+                    <div class="col-md-3 book-form-field">
+                        <label for="form-room-type">Room Type</label>
+                        <input id="form-room-type" class="form-control" name="room_type" type="text"
+                            value="{{room_type_id}}" readonly required>
+                    </div>
+
+                    <div class="col-md-3 book-form-field">
+                        <label for="form-checkIn-type">Check-in</label>
+                        <input id='form-checkIn-type' name="check_in" class="form-control"
+                            onchange="change_price(event)" type="date" required>
+                    </div>
+
+                    <div class="col-md-3 book-form-field">
+                        <label for="form-checkOut-type">Check-out</label>
+                        <input id="form-checkOut-type" class="form-control" name="check_out"
+                            onchange="change_price(event)" type="date" required>
+                    </div>
+
+                    <div class="col-md-3 book-form-field">
+                        <label for="form-meal">Meal</label>
+                        <select onchange="getMealPrice(event)" id="form-meal" name="meal_type" class="form-select"
+                            required>
+                            <!-- <option hidden>Select Meal type</option> -->
+                             {% for meal_type in all_meal_types %}
+                            <option value="{{meal_type.id}}">{{meal_type}}</option>
+                            {% endfor %}
+                            
+                        </select>
+                    </div>
+
+                    <div id="rooms-container">
+                        <!-- Default Room 1 -->
+                        <div class="room-container" id="room-1">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                    <label for="room1"><b>Room 1</b></label>
+                                    <input type="text" class="form-control rooms" id="room1" value="Room 1" readonly
+                                        required>
+                                    <div class="error-accommodate"></div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                    <label for="adults1"><b>Adult</b></label>
+                                    <div class="input-container">
+                                        <button
+                                            class="icon-button btn btn-secondary round-button-for-add-or-minus-room "
+                                            onclick="decreaseValueOfAdult(event, 'adults1')">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+
+                                        <input type="number" class="form-control adults" id="adults1" min="1" max="2"
+                                            value="1" readonly required>
+
+                                        <button class="icon-button btn btn-secondary"
+                                            onclick="increaseValue(event,'adults1')">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                    <label for="children1"><b>Children</b></label>
+                                    <div class="input-container">
+                                        <button class="icon-button btn btn-secondary"
+                                            onclick="decreaseValue(event,'children1')">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+
+                                        <input type="number" class="form-control child" name="children" id="children1"
+                                            value="0" max="2" readonly required>
+
+                                        <button class="icon-button btn btn-secondary"
+                                            onclick="increaseValue(event,'children1')">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                    <!-- Remove button for Room 1 is removed completely -->
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <button style="display: inline-block;padding: 5px 15px;margin-left: 12px;width: auto;"
+                        class="btn btn-primary" id="add-room-button" onclick="addRoom(event)">
+                        <i class="fas fa-plus"></i> Add Room
+                    </button>
+
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-md-3 book-form-field">
+                        <label for="room_price">Room Price</label>
+                        <input class="form-control" id="hotel_room_price" type="text" name="room_price"
+                            value="{{room_price}}" readonly>
+                    </div>
+
+                    <div class="col-md-3 book-form-field">
+                        <label for="Meal Price">Meal Price</label>
+                        <input class="form-control" id="hotel_meal_price" type="text" name="meal_price"
+                            value="{{meal_price}}" readonly>
+                    </div>
+
+                    <div class="col-md-3 book-form-field">
+                        <label>Grand Total</label>
+                        <input class="form-control" id="grand_total" type="text" name="grand_total"
+                            value="{{total_amount}}" readonly>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div style="display: flex;justify-content: center;margin-top: 16px;">
+                        <!-- <button onclick="add_booking(event)" class="book-form-btn" type="submit">Book Now</button> -->
+                        <button class="book-form-btn" onclick="add_booking(event)" type="submit">Book Now</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+<script src="https://cdn.ravenjs.com/3.4.0/raven.min.js"></script>
+
+<script>
+    room_type = document.querySelector("#room-type").textContent;
+    // console.log(room_type)
+    form_room_type = document.querySelector("#form-room-type");
+    form_room_type.value = room_type;
+
+</script>
+
+
+<script>
+    let roomCount = 1;
+
+    function grand_total() {
+        let meal_price_field = document.getElementById("hotel_meal_price").value;
+        let hotel_price_data = document.querySelector("#hotel_room_price").value;
+        let grand_total_field = document.querySelector("#grand_total");
+        // let grand_total = hotel_price_data + meal_price_field;
+        grand_total_field.value = parseFloat(hotel_price_data) + parseFloat(meal_price_field);
+    }
+
+    // Function to increase value
+    function increaseValue(event, field) {
+        // console.log(field)
+        event.preventDefault();  // Prevent form submission and page reload
+        var inputField = document.getElementById(field);
+        // console.log(inputField)
+        var currentValue = parseInt(inputField.value);
+        var maxValue = inputField.max ? parseInt(inputField.max) : 10; // Default max value is 10
+        if (currentValue < maxValue) {
+            inputField.value = currentValue + 1;
+        }
+        else {
+            error_accommodate_set_elem = event.currentTarget.parentElement.parentElement.parentElement
+            let error_accommodate = document.getElementsByClassName("error-accommodate");
+            // console.log(error_accommodate);
+            let addNew = document.getElementById("addNewRoom");
+            // console.log(addNew)
+            if (addNew == null) {
+                let accommodate_more = document.createElement("span");
+                accommodate_more.textContent = "*Add New Room"
+                accommodate_more.setAttribute("id", "addNewRoom");
+                accommodate_more.classList.add("accommodate-more-people")
+                error_accommodate_set_elem.appendChild(accommodate_more);
+            }
+        }
+    }
+
+    // Function to decrease value
+    function decreaseValue(event, field) {
+        event.preventDefault();  // Prevent form submission and page reload
+        var inputField = document.getElementById(field);
+        var currentValue = parseInt(inputField.value);
+        if (currentValue > 0) {
+            inputField.value = currentValue - 1;
+        }
+
+        let error_accommodate_set = document.querySelector("#addNewRoom");
+        if (error_accommodate_set != null) {
+            // console.log(error_accommodate_set);
+            error_accommodate_set.remove();
+        }
+    }
+
+    function decreaseValueOfAdult(event, field) {
+        event.preventDefault();  // Prevent form submission and page reload
+        var inputField = document.getElementById(field);
+        console.log(inputField, field)
+        var currentValue = parseInt(inputField.value);
+        if (currentValue > 1) {
+            inputField.value = currentValue - 1;
+        }
+
+        let error_accommodate_set = document.querySelector("#addNewRoom");
+        if (error_accommodate_set != null) {
+            // console.log(error_accommodate_set);
+            error_accommodate_set.remove();
+        }
+    }
+
+    // Function to add a new room
+    function addRoom(event) {
+        event.preventDefault();
+        let error_accommodate_set = document.querySelector("#addNewRoom");
+        // console.log(error_accommodate_set);
+        if (error_accommodate_set != null) {
+            error_accommodate_set.remove();
+        }
+
+        if (roomCount >= 5) {
+            return; // Prevent adding more than 5 rooms
+        }
+
+        roomCount++;
+        var roomsContainer = document.getElementById('rooms-container');
+        var newRoom = document.createElement('div');
+        newRoom.classList.add('room-container');
+        newRoom.id = 'room-' + roomCount;
+
+        newRoom.innerHTML = `
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <label for="room${roomCount}"><b>Room ${roomCount}</b></label>
+                <input type="text" class="form-control rooms" id="room${roomCount}" name="room${roomCount}" value="Room ${roomCount}" readonly>
+                <div class="error-accommodate"></div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <label for="adults${roomCount}"><b>Adult</b></label>
+                <div class="input-container">
+                    <button class="icon-button btn btn-secondary" onclick="decreaseValueOfAdult(event, 'adults${roomCount}')">
+                        <i class="fas fa-minus"></i>
+                    </button>
+
+                    <input type="number" class="form-control adults" name="adult${roomCount}" id="adults${roomCount}" value="1" min="1" max="2" readonly>
+
+                    <button class="icon-button btn btn-secondary" onclick="increaseValue(event, 'adults${roomCount}')">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <label for="children${roomCount}"><b>Children</b></label>
+                <div class="input-container">
+                    <button class="icon-button btn btn-secondary" onclick="decreaseValue(event, 'children${roomCount}')">
+                        <i class="fas fa-minus"></i>
+                    </button>
+
+                    <input type="number" class="form-control child" name="children${roomCount}" id="children${roomCount}" value="0" min="0" max="2" readonly>
+
+                    <button class="icon-button btn btn-secondary" onclick="increaseValue(event, 'children${roomCount}')">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                ${roomCount > 1 ? '<button class="btn btn-danger remove-room-large w-100 removeRoomUpdate" onclick="removeRoom(event,' + roomCount + ')"><i class="fas fa-times"></i> Remove Room</button>' : ''}
+            </div>
+        </div>
+    `;
+
+        roomsContainer.appendChild(newRoom);
+
+        // If we've reached 5 rooms, hide the "Add Room" button
+        if (roomCount === 5) {
+            document.getElementById('add-room-button').style.display = 'none';
+        }
+
+        // function call toIncreasePrice
+        toIncreasePrice()
+    }
+
+    function toIncreasePrice() {
+        // console.log("todsfaaaaaaaaaaaaaaaaaaa");
+        // let form_room_type = document.querySelector("#form-room-type").value;
+        let form_room_type = "{{room_type_id}}";
+        let form_meal = document.querySelector("#form-meal");
+        hotel_price_data = document.querySelector("#hotel_room_price");
+        let hotel_room_price = document.querySelector("#hotel_room_price").value;
+        let check_in_date = document.getElementById("form-checkIn-type").value;
+        let check_out_date = document.getElementById("form-checkOut-type").value;
+        // console.log(form_room_type, hotel_room_price)
+
+        price_related_json = {
+            'form_room_type': form_room_type,
+            'hotel_room_price': hotel_room_price,
+            'check_in_date': check_in_date,
+            'check_out_date': check_out_date,
+        };
+
+        base_url = 'room_price_hotel_room'
+        fetch(base_url, {
+            method: "POST",
+            headers: { "X-CSRFToken": '{{csrf_token}}' },
+            body: price_related_json = JSON.stringify(price_related_json),
+        })
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data);
+                hotel_price_data.value = data['price'];
+                grand_total()
+            }
+            )
+
+    }
+
+
+    // Function to remove a room and renumber the remaining rooms
+    function removeRoom(event, roomId) {
+        event.preventDefault();
+
+        // Prevent removal of room 1
+        if (roomId === 1) {
+            return;
+        }
+
+        var room = document.getElementById('room-' + roomId);
+        // console.log("proomCount", roomCount)
+        // console.log(roomId)
+        room.remove();
+        roomCount--;
+
+        // console.log("room", room);
+        // console.log("roomCount", roomCount)
+
+        // Renumber the remaining rooms and update their input values
+        var rooms = document.querySelectorAll('.room-container');
+        rooms.forEach((room, index) => {
+            var newRoomNumber = index + 1;
+            room.id = 'room-' + newRoomNumber;
+
+            // Update the label and input values
+            const labels = room.querySelectorAll('label');
+            labels.forEach((label) => {
+                label.setAttribute("for", `room${newRoomNumber}`);
+                label.textContent = 'Room ' + newRoomNumber;
+            })
+
+            const input = room.querySelector('input[id^="room"]');
+            input.id = 'room' + newRoomNumber;
+            input.value = 'Room ' + newRoomNumber;
+            input.name = 'room' + newRoomNumber;
+
+            const adultsInput = room.querySelector('input[id^="adults"]');
+            adultsInput.id = 'adults' + newRoomNumber;
+            adultsInput.name = 'adults' + newRoomNumber;
+
+            const childrenInput = room.querySelector('input[id^="children"]');
+            childrenInput.id = 'children' + newRoomNumber;
+            childrenInput.name = 'children' + newRoomNumber;
+
+
+            let btns = room.getElementsByClassName('icon-button');
+            btns[0].setAttribute("onclick", decreaseValueOfAdult(event, `adults${newRoomNumber}`));
+            btns[1].setAttribute("onclick", increaseValue(event, `adults${newRoomNumber}`));
+            btns[2].setAttribute("onclick", decreaseValue(event, `children${newRoomNumber}`));
+            btns[3].setAttribute("onclick", increaseValue(event, `children${newRoomNumber}`));
+
+            // Update remove button action
+            const removeButton = room.querySelector('btn-danger');
+            if (removeButton) {
+                removeButton.setAttribute('onclick', 'removeRoom(event, ' + newRoomNumber + ')');
+            }
+        });
+        // console.log(removeButton);
+        // Show the "Add Room" button if there are less than 5 rooms
+        if (roomCount < 5) {
+            document.getElementById('add-room-button').style.display = 'inline-block';
+        }
+        // removeRoomUpdate = document.getElementsByClassName("removeRoomUpdate");
+        removeroomUpdatebutton()
+    }
+
+
+
+    // removeroomUpdatebutton()
+
+    function removeroomUpdatebutton() {
+        let removeRoomUpdate = document.getElementsByClassName("removeRoomUpdate");
+        console.log(removeRoomUpdate)
+        for (let i = 0; i < removeRoomUpdate.length; i++) {
+
+            // Get the onclick event handler
+            let event_id = removeRoomUpdate[i].getAttribute('onclick');
+
+            // Find the parent element of the current removeRoomUpdate element
+            let parent_element = removeRoomUpdate[i].parentElement.parentNode;
+
+            // Find the label for the associated input by selecting the previous sibling
+            let label = parent_element.querySelector('label');
+
+            if (label) {
+                room_no = label.innerText.split(" ")[1];
+                removeRoomUpdate[i].removeAttribute("onclick");
+                removeRoomUpdate[i].setAttribute("onclick", removeRoom(event, `${room_no}`));
+            }
+            // else {
+            //     console.log("No label found.");
+            // }
+        }
+
+        decreaseRoomPrice()
+    }
+
+    function decreaseRoomPrice() {
+        // console.log("todsfaaaaaaaaaaaaaaaaaaa");
+        // let form_room_type = document.querySelector("#form-room-type").value;
+        let form_room_type = "{{room_type_id}}";
+        console.log(form_room_type);
+        let hotel_price_data = document.querySelector("#hotel_room_price");
+        let hotel_room_price = document.querySelector("#hotel_room_price").value;
+        let check_in_date = document.getElementById("form-checkIn-type").value;
+        let check_out_date = document.getElementById("form-checkOut-type").value;
+        let price_related_json = {
+            'form_room_type': form_room_type,
+            'hotel_room_price': hotel_room_price,
+            'check_in_date': check_in_date,
+            'check_out_date': check_out_date,
+        }
+
+        base_url = 'decrease_room_price'
+
+        fetch(base_url, {
+            method: "POST",
+            headers: { "X-CSRFToken": '{{csrf_token}}' },
+            body: price_related_json = JSON.stringify(price_related_json),
+        })
+            .then(response => response.json())
+            .then(data => {
+                hotel_price_data.value = data['price'];
+                grand_total()
+            }
+            )
+    }
+
+    function getMealPrice(event) {
+        event.preventDefault();
+        let meal_price_field = document.getElementById("hotel_meal_price");
+        let meal_type = document.getElementById("form-meal").value;
+        let check_in_date = document.getElementById("form-checkIn-type").value;
+        let check_out_date = document.getElementById("form-checkOut-type").value;
+        meal = {
+            "meal_type": meal_type,
+            'check_in_date': check_in_date,
+            'check_out_date': check_out_date,
+        }
+        meal_type_json = JSON.stringify(meal)
+
+        base_url = 'meal'
+
+        fetch(base_url, {
+            method: "POST",
+            headers: { "X-CSRFToken": '{{csrf_token}}' },
+            body: meal_type_json,
+        }).then(response => response.json())
+            .then(data => {
+                meal_price_field.value = data.data;
+                grand_total()
+            }
+            )
+
+    }
+
+</script>
+
+<script>
+
+    function change_price(event) {
+        date_checkIn = document.getElementById("form-checkIn-type").value;
+        date_checkOut = document.getElementById("form-checkOut-type").value;
+        room_type = "{{category}}";
+        rooms = document.querySelectorAll(".rooms");
+        no_of_room = rooms.length;
+        meal_type = document.getElementById("form-meal").value;
+        dates = {
+            'checkIn': date_checkIn,
+            'checkOut': date_checkOut,
+            'roomType': room_type,
+            'no_of_room': no_of_room,
+            'meal_type': meal_type,
+        }
+
+        if (date_checkIn && date_checkOut && date_checkIn < date_checkOut) {
+            dates = JSON.stringify(dates)
+            // console.log("Dates:", dates)
+            base_url = 'get-room-price';
+            fetch(base_url, {
+                method: 'POST',
+                body: dates,
+                headers: {
+                    'Content-Type': "application/json",
+                    'X-CSRFTOKEN': "{{csrf_token}}",
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // console.log(data);
+                    document.getElementById("hotel_room_price").value = data['room_price'];
+                    document.getElementById("hotel_meal_price").value = data['meal_category_price'];
+                    document.getElementById("grand_total").value = data['total_amount'];
+                })
+            // .catch(e=>{
+            //     console.log(e);
+            // })
+        }
+
+    }
+</script>
+
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock content %}

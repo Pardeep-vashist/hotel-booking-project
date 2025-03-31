@@ -1,0 +1,373 @@
+{% extends 'hotel/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Hotel Website</title>
+<!-- <meta http-equiv="Content-Security-policy" content="content-src 'self' "> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+<link rel="stylesheet" href="{% static 'hotel/css/front.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="container-fluid" id="hotel-front">
+    <img class="img-fluid" id="hotel-front-image" src="/static/hotel/images/home-1.1.webp">
+
+    <div id="front-content">
+        <p>Welcome to Luxury Hotel</p>
+        <p>The Heavenly Retreat</p>
+    </div>
+
+    <div id="front-discover">
+        <a id="room-btn" href="#">Discover Room</a>
+    </div>
+</div>
+
+<div class="container">
+    <form action="/rooms/check_availability" method="POST" class="check-availability">
+        {% csrf_token %}
+        <div class="row input-field">
+            <div class="col-lg-2 col-md-4 check-now">
+                <label for="room_type">Room Type</label>
+                <select id="room_type" name="room_type" class="form-select">
+                    {% if all_room_types %}
+                    {% for room_type in all_room_types %}
+                    <option value="{{room_type.id}}">{{room_type}}</option>
+                    {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
+            <div class="col-lg-2 col-md-4 check-now">
+                <label for="check-in">Check In</label>
+                <input id="check-in" name="check_in" class="form-control" type="date">
+            </div>
+
+            <div class="col-lg-2 col-md-4 check-now">
+                <label for="check-out">Check Out</label>
+                <input id="check-out" name="check_out" class="form-control" type="date">
+            </div>
+
+            <div class="col-lg-2 col-md-4 check-now">
+                <label for="no-of-room">Room</label>
+                <input id="no-of-room" name="no_of_room" class="form-control" value="1" min="1" type="number">
+            </div>
+
+            <div class="col-lg-2 col-md-4 check-now">
+                <label for="no-of-adult">Adult</label>
+                <input id="no-of-adult" name="no_of_adult" class="form-control" value="1" type="number" min="1" max="4">
+            </div>
+
+            <div class="col-lg-2 col-md-4 check-now">
+                <label for="no-of-child">Children</label>
+                <input id="no-of-child" name="no_of_child" class="form-control" type="number" value="0" min="0" max="2">
+            </div>
+        </div>
+
+        <div style="display: flex;justify-content: center;margin-top: 20px;">
+            <div id="check-now-btn">
+                <button style="margin: auto;">Check Availability</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="rooms" class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <!-- Room Card 1 -->
+            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                <div class="room-card">
+                    <img src="{% static 'hotel/images/Business Class Room.jpg' %}" alt="Business Room"
+                        class="room-image" />
+
+                    <div class="room-info">
+                        <h2>Business Room</h2>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="bottom">
+                                    <i class="fas fa-wifi"></i>
+                                    <span class="rating"> &nbsp; Wifi</span><br />
+                                </div>
+
+                                <div class="bottom">
+                                    <i data-lucide="air-vent"></i>
+                                    <span class="info"> &nbsp;Air Conditioner</span><br />
+                                </div>
+
+                                <div class="bottom">
+                                    <i class="fa fa-tv"></i>
+                                    <span class="info"> &nbsp; Television</span><br />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="bottom">
+                                    <i class="fas fa-shower"></i>
+                                    <span class="rating"> &nbsp; Shower</span><br />
+                                </div>
+
+                                <div class="bottom">
+                                    <i class="fas fa-shoe-prints"></i>
+                                    <span class="info"> &nbsp;Slippers</span><br />
+                                </div>
+
+                                <div class="bottom">
+                                    <i class="fa fa-cocktail"></i>
+                                    <span class="info"> &nbsp;Welcome Drinks</span><br />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div>
+                                    <i data-lucide="hand-platter"></i>
+                                    <span class="info"> &nbsp;Breakfast, Lunch & Dinner</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-bottom"></div>
+
+                        <div class="pricing">
+                            <a href="" class="view-detail">See More</a>
+                            <a href="#" class="view-detail">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Room Card 2 -->
+            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                <div class="room-card">
+                    <img src="{% static 'hotel/images/Suite Class Room.jpg' %}" alt="Suite Room"
+                        class="room-image" />
+
+                    <div class="room-info">
+                        <h2>Suite Room</h2>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="bottom">
+                                    <i class="fas fa-wifi"></i>
+                                    <span class="rating"> &nbsp; Wifi</span><br />
+                                </div>
+
+                                <div class="bottom">
+                                    <i data-lucide="air-vent"></i>
+                                    <span class="info"> &nbsp;Air Conditioner</span><br />
+                                </div>
+
+                                <div class="bottom">
+                                    <i class="fa fa-tv"></i>
+                                    <span class="info"> &nbsp; Television</span><br />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="bottom">
+                                    <i class="fas fa-shower"></i>
+                                    <span class="rating"> &nbsp; Shower</span><br />
+                                </div>
+
+                                <div class="bottom">
+                                    <i class="fas fa-shoe-prints"></i>
+                                    <span class="info"> &nbsp;Slippers</span><br />
+                                </div>
+
+                                <div class="bottom">
+                                    <i class="fa fa-cocktail"></i>
+                                    <span class="info"> &nbsp;Welcome Drinks</span><br />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div>
+                                    <i data-lucide="hand-platter"></i>
+                                    <span class="info"> &nbsp;Breakfast, Lunch & Dinner</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-bottom"></div>
+
+                        <div class="pricing">
+                            <a href="#" class="view-detail">See More</a>
+                            <a href="#" class="view-detail">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Room Card 3 -->
+            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                <div class="room-card">
+                    <img src="{% static 'hotel/images/Twin Bed Class Room.jpg' %}" alt="Deluxe Room"
+                        class="room-image" />
+
+                    <div class="room-info">
+                        <h2>Deluxe Room</h2>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="bottom">
+                                    <i class="fas fa-wifi"></i>
+                                    <span class="rating"> &nbsp; Wifi</span><br />
+                                </div>
+
+                                <div class="bottom">
+                                    <i data-lucide="air-vent"></i>
+                                    <span class="info"> &nbsp;Air Conditioner</span><br />
+                                </div>
+
+                                <div class="bottom">
+                                    <i class="fa fa-tv"></i>
+                                    <span class="info"> &nbsp; Television</span><br />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="bottom">
+                                    <i class="fas fa-shower"></i>
+                                    <span class="rating"> &nbsp; Shower</span><br />
+                                </div>
+
+                                <div class="bottom">
+                                    <i class="fas fa-shoe-prints"></i>
+                                    <span class="info"> &nbsp;Slippers</span><br />
+                                </div>
+
+                                <div class="bottom">
+                                    <i class="fa fa-cocktail"></i>
+                                    <span class="info"> &nbsp;Welcome Drinks</span><br />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div>
+                                    <i data-lucide="hand-platter"></i>
+                                    <span class="info"> &nbsp;Breakfast, Lunch & Dinner</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-bottom"></div>
+
+                        <div class="pricing">
+                            <a href="#" class="view-detail">See More</a>
+                            <a href="#" class="view-detail">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('.check-availability').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Form data extraction
+            room_type_id = document.getElementById("room_type").value;
+            room_category = document.getElementById("room_type").selectedIndex;
+            room_category = room_type.value;
+            console.log(room_category)
+            // room_type_content = document.getElementById("room_type").textContent;
+            check_in = document.getElementById("check-in").value;
+            check_out = document.getElementById("check-out").value;
+            no_of_room = document.getElementById("no-of-room").value;
+            no_of_adult = document.getElementById("no-of-adult").value;
+            no_of_child = document.getElementById("no-of-child").value;
+
+            formData = {
+                room_type: room_type_id,
+                check_in: check_in,
+                check_out: check_out,
+                no_of_room: no_of_room,
+                no_of_adult: no_of_adult,
+                no_of_child: no_of_child,
+                room_category: room_category,
+            };
+            // console.log(formData)
+            formData_json = JSON.stringify(formData);
+            console.log(formData_json);
+            // Fetch request...
+            fetch(event.target.action, {
+                method: 'POST', // Send the data via POST
+                body: formData_json, // Pass the form data
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value, // CSRF token for security
+                }
+            })
+                .then(response => {
+                    // console.log(response.text())
+                    return response.json();   // Assume the server returns JSON data
+                })
+                .then(data => {
+                    console.log(data)
+                    if (data['avalibility_status'] == "Rooms are avaliable") {
+                        console.log("iam working")
+                        Swal.fire({
+                            title: "Congrats",
+                            text: data['available_status'],
+                            icon: "success"
+                        })
+                        .then((response) => {
+                            encode_URL = encodeURIComponent(formData_json);
+                            // console.log(encode_URL)
+                            redirected_url = window.location.href;
+                            window.location.href = redirected_url.slice(0,21)+'/book/room?'+encode_URL;
+                        });
+                    }
+                    else if (data.avalibility_status === "Rooms are not avaliable") {
+                        Swal.fire({
+                            title: "Oops",
+                            text: data.avalibility_status,
+                            icon: "error"
+                        });
+                    }
+                    else if (data.avalibility_status == "Please provide correct Details") {
+                        Swal.fire({
+                            title: "Oops",
+                            text: data.avalibility_status,
+                            icon: "error"
+                        });
+                    }
+                })
+                .catch(error => {
+                    // Handle errors (e.g., network issues)
+                    console.error('Error:', error);
+                    alert('There was an error with the request.');
+                });
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var today = new Date();
+        var formattedDate = today.toISOString().split('T')[0]; // Get the current date in yyyy-mm-dd format
+
+        var checkInInput = document.getElementById('check-in');
+        var checkOutInput = document.getElementById('check-out');
+        checkInInput.setAttribute('min', formattedDate);
+        checkOutInput.setAttribute('min', formattedDate);
+    });
+</script>
+
+{% endblock content %}

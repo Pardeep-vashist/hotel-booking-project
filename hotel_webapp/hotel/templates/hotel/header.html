@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="BeBkMmdn4rjV7kEmtKJskE5H3E37A0EYbdgATgIoBtA" />
+
+    <!--Css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'hotel/css/font-awesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'hotel/css/header&footer.css' %}">
+
+    <!--Favicon Icon-->
+    <!-- <link rel="icon" href="../icon/favicon.png" type="image/x-icon"> -->
+
+    <!-- Bootstrap min css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+
+    <!-- Font Family -->
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- header start -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <!-- Logo -->
+                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 text-center" id="logo_left">
+                    <a href="/"><img src="{% static 'accommodation/images/hotel_logo.png' %}" alt="Hotel"
+                            width="80%"></a>
+                </div>
+
+                <!-- Phone and Email -->
+                <div class="col-lg-8 col-md-4 col-sm-4 col-xs-4 text-center">
+                    <nav class="menu">
+                        <div class="mobile-menu-head">
+                            <div class="go-back"><i class="fa fa-angle-left"></i></div>
+                            <div class="current-menu-title"></div>
+                            <div class="mobile-menu-close">&times;</div>
+                        </div>
+
+                        <ul class="menu-main">
+                            <li class="menu-item-has-children">
+                                <a href="/">Home</a>
+                            </li>
+
+                            <li class="menu-item-has-children">
+                                <a href="">About Us</a>
+                            </li>
+
+                            <li class="menu-item-has-children">
+                                <a href="">Rooms</a>
+                                <!-- <div class="sub-menu single-column-menu">
+                                    <ul>
+                                        <li><a href="" style="font-weight: 600;">Business Class Room</a></li>
+                                        <li><a href="" style="font-weight: 600;">Suite Class Room</a></li>
+                                        <li><a href="" style="font-weight: 600;">Twin Bed Room</a></li>
+                                    </ul>
+                                </div> -->
+                            </li>
+
+                            <li class="menu-item-has-children">
+                                <a href="">Facilities</a>
+                            </li>
+
+                            <li class="menu-item-has-children">
+                                <a href="">Gallery</a>
+                            </li>
+
+                            <li class="menu-item-has-children">
+                                <a href="">Contact Us</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <div class="mobile-menu-trigger">
+                        <span></span>
+                    </div>
+                </div>
+
+                <!-- Book Now Button -->
+                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 text-center" id="button_right">
+                    <a href="">
+                        <button class="btn btn-primary" id="free_assessment">Book Now</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header end -->
+
+    <!-- Scroll to Top Button -->
+    <!-- <button onclick="topFunction()" id="scrollTopBtn" title="Go to top"><i class="fa fa-plane"></i></button> -->
+
+    <script src="{% static 'accommodation/js/header.js' %}"></script>
+    <!-- <script src="../js/script.js"></script> -->
+</body>
+
+</html>
