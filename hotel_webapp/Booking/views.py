@@ -138,16 +138,16 @@ def dynamic_price(room_category, meal_category, check_in_date, check_out_date, n
 
                     if in_advance_days >= applied_offer[0] and in_advance_days <= applied_offer[1]:
                         offer_got = discounts[i]['Discount_Percentage']
-                        print("OFFER GOT:", offer_got)
+                        print("OFFER GOT:", type(offer_got))
                         break
 
             if room_category != None:
                 room_base_price = float(
                     Room_Category.objects.get(id=room_category).price)
-                print("ROOM VASE PRICE", room_base_price)
+                print("ROOM VASE PRICE", type(room_base_price))
                 discount_amount = (offer_got/100)*room_base_price
                 calculated_room_price = round(
-                    (room_base_price-discount_amount)*no_of_days*no_of_rooms)
+                    (room_base_price-discount_amount)*float(no_of_days)*float(no_of_rooms))
             else:
                 calculated_room_price = 0
 
@@ -167,4 +167,10 @@ def dynamic_price(room_category, meal_category, check_in_date, check_out_date, n
 
             return calculated_amounts
     except Exception as e:
+        calculated_amounts = {
+            'room_price':None,
+            'meal_category_price': None,
+            'total_amount': None,
+        }
         print("ERROR IN DYNAMIC PRICE CALCULATION:", e)
+        return calculated_amounts

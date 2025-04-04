@@ -1,2 +1,3 @@
 .env.dev
 env
+/hotel_webapp/settings.py

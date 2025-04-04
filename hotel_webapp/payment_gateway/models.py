@@ -12,5 +12,5 @@ class Payment(models.Model):
     currency = models.CharField(max_length=15,default="INR")
     payment_date = models.DateField(null=True,blank=True)
 
-    def _self_():
-        return self.amount_paid
+    def __str__(self):
+        return str(self.amount_paid)

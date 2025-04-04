@@ -11,3 +11,8 @@ def home_page(request):
 
     return render(request,'hotel/index.html',context)
 
+def contact_us(request):
+    return render(request,"hotel/contact_us.html")
+
+def gallery(request):
+    return render(request,'hotel/gallery.html')

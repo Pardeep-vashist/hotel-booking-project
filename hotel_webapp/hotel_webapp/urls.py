@@ -22,7 +22,7 @@ import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hotel/', include('hotel.urls')),
+    path('', include('hotel.urls')),
     path('rooms/', include('Rooms.urls')),
     path('book/', include('Booking.urls')),
     path('payment/', include('payment_gateway.urls')),

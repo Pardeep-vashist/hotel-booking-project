@@ -31,7 +31,7 @@ class Booking(models.Model):
     meal_type = models.ForeignKey(Meal_Type,null=True,on_delete=models.SET_NULL)
     no_of_rooms = models.IntegerField(default=1)
     no_of_days = models.IntegerField(null=True,blank=True,default=1)
-    room_price_per_night_offered = models.FloatField(default=0.0)
+    price_per_night = models.FloatField(default=0.0)
     room_choices = [
         (1,1),
         (2,2),
@@ -40,14 +40,12 @@ class Booking(models.Model):
     ]
     no_of_room = models.IntegerField(choices=room_choices,default=1)
 
-    room_price = models.DecimalField(max_digits=10,decimal_places=2,null=True,blank=True)
+    # room_price = models.DecimalField(max_digits=10,decimal_places=2,null=True,blank=True)
     payment = models.ForeignKey('payment_gateway.Payment',on_delete=models.SET_NULL,null=True,blank=True,related_name='booking_payment')
 
     def save(self,*args,**kwargs):
         self.no_of_days = (self.check_out-self.check_in).days
-        print("********************************")
-        print(self.no_of_days)
-        print("********************************")
+        # print(self.no_of_days)
         super().save(*args,**kwargs)
 
 class discountPercentages(models.Model):

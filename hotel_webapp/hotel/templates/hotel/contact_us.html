@@ -1,0 +1,55 @@
+{% extends 'hotel/base.html' %}
+{% load static %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'accommodation/css/front.css' %}">
+
+{% endblock head %}
+
+{% block content %}
+<div id="contact-margin" class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" id="left">
+            <h5 class="contact_title">CONTACT INFORMATION</h5>
+            <h2 class="contact_heading">Hotel Name</h2>
+            <p class="location">572 – 636 Victoria Parade<br> P.O. Box 19217</br> Suva, Fiji</p>
+            <p class="location"><b>Phone Number:</b> +679 345 67 88</p>
+            <p class="email"><b>Email:</b> info@company.com</p>
+
+            <div class="border_bottom"></div>
+
+            <div>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d109552.2048724249!2d75.77427160108711!3d30.900466392722485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a837462345a7d%3A0x681102348ec60610!2sLudhiana%2C%20Punjab!5e0!3m2!1sen!2sin!4v1736251624703!5m2!1sen!2sin"
+                    height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" class="google_map">
+                </iframe>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" id="right_background">
+            <div class="contact_form">
+                <h5 class="form_title">CONTACT FORM</h5>
+                <h2 class="form_heading">Let's Start A Conversation</h2>
+
+                <form action="#" method="POST">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Your Name">
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Your Email">
+
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required placeholder="Subject">
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required placeholder="Your Message"></textarea>
+
+                    <button type="submit" class="submit-btn">Send Your Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,117 @@
+{% extends 'hotel/base.html' %}
+{% load static %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'accommodation/css/front.css' %}">
+<link rel="stylesheet" href="{% static 'accommodation/css/room_desc.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="container-fluid header-margin" id="about_background">
+    <div class="about_overlay"></div>
+    <h2 class="about_head_title">About Us</h2>
+    <p class="about_head_para">Welcome to our hotel, where luxury meets comfort in the heart of India.</p>
+</div>
+
+<!-- About Us -->
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <img src="{% static 'accommodation/gallery/about-img.webp' %}" alt="" class="img-responsive" width="95%"
+                    id="about_img">
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" id="right">
+                <!-- <h5 class="about_title">About Us</h5> -->
+                <h2 class="about_heading">See Life From A Different Perspective.</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus rhoncus libero felis, sit amet
+                    suscipit nulla accumsan sagittis.
+                    Nulla pretium nunc sed aliquam blandit. Aenean rhoncus arcu nec turpis ornare feugiat. Fusce
+                    elementum scelerisque libero, a
+                    placerat risus fringilla id. Duis accumsan magna eget ipsum placerat, et aliquet quam venenatis.
+                    Donec tincidunt felis id
+                    tincidunt fringilla. Sed ac lectus aliquam, vehicula nulla quis, pulvinar mi. Curabitur id lacus
+                    hendrerit, posuere eros in,
+                    porttitor mi. Nulla facilisi. Curabitur vel ultricies enim. Nullam aliquam nulla commodo
+                    sagittis rhoncus.
+                </p>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 colsm-12 col-xs-12" id="counter_border">
+                        <h3 class="counter_title">5+</h3>
+                        <p class="counter_paragraph">YEAR OF EXPERIENCES</p>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 colsm-12 col-xs-12" id="counter_border">
+                        <h3 class="counter_title">1k+</h3>
+                        <p class="counter_paragraph">HAPPY CUSTOMERS</p>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 colsm-12 col-xs-12" id="counter_border">
+                        <h3 class="counter_title">24/7</h3>
+                        <p class="counter_paragraph">SERVICES</p>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 colsm-12 col-xs-12" id="counter_border">
+                        <h3 class="counter_title">50+</h3>
+                        <p class="counter_paragraph">STAFF MEMEBERS</p>
+                    </div>
+                </div><br><br>
+
+                <a href="" class="book-now">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Facilities -->
+<div class="container-fluid" id="top">
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" id="facilities_background">
+            <h5 class="about_title">Facilities</h5>
+            <h2 class="facilities_heading">Hotel Facilities</h2><br>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <img src="{% static 'accommodation/gallery/bed.svg' %}" alt="Bed" class="img-responsive">
+                    <h3 class="facilities_title">Rooms and Suites</h3>
+                    <p class="facilities_paragraph">Varied types of rooms, from standard to luxury suites, equipped
+                        with essentials like beds.</p>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <img src="{% static 'accommodation/gallery/security.svg' %}" alt="Security" class="img-responsive">
+                    <h3 class="facilities_title">24-Hour Security</h3>
+                    <p class="facilities_paragraph">On-site security personnel and best surveillance. from standard
+                        to luxury suites,Secure storage for valuables.</p>
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <img src="{% static 'accommodation/gallery/gym.svg' %}" alt="Fitness" class="img-responsive">
+                    <h3 class="facilities_title">Fitness Center</h3>
+                    <p class="facilities_paragraph">Equipped with exercise machines and weights.Offering massages,
+                        facials, and other treatments.</p>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <img src="{% static 'accommodation/gallery/swimming-pool.svg' %}" alt="Swimming Pool"
+                        class="img-responsive">
+                    <h3 class="facilities_title">Swimming Pool</h3>
+                    <p class="facilities_paragraph">Indoor or outdoor pools for leisure or exercise.Offering
+                        massages, facials, and other treatments</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+            <img src="{% static 'accommodation/gallery/facility.webp' %}" alt="Facilities" class="img-responsive"
+                width="90%" id="facilities_img">
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

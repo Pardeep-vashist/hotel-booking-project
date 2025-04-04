@@ -53,12 +53,11 @@ function add_booking(event) {
     amount = document.getElementById("grand_total").value;
     // console.log("amount",amount)
 
-    // form_room_type = document.getElementById("#form-room-type").value;
-    // console.log("HHHHHHHHHHHHHHHH##################################");
-    // console.log(`checkIn:${checkIn},checkOut:${checkOut}`)
-    // console.log(`date comparison: ${checkIn<checkOut}`)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // console.log(emailRegex.test(email))
     
-    if (fname === "" || lname === "" || phone_no === "" || email === "" || checkIn === "" || checkOut === "") {
+    if (fname === "" || fname.includes(" ") || lname.includes(" ") || phone_no.includes(" ") || email.includes(" ")|| lname === "" || phone_no === "" || email === "" || checkIn === "" || checkOut === "") {
         Swal.fire({
             title: "Please fill out all required fields",
             text: "You won't be able to proceed without completing them.",
@@ -72,6 +71,14 @@ function add_booking(event) {
             text: "You won't be able to proceed without completing them.",
             icon: "warning",
         })
+    }   
+    else if (!emailRegex.test(email)){
+        Swal.fire({
+            title: "Invalid Email",
+            text: "Please fill Email in Correct Format(e.g:hello@example.com)",
+            icon: "warning",
+        })
+        return
     }
     else {
         let allRooms = 0;
@@ -92,10 +99,6 @@ function add_booking(event) {
             // console.log(child[i]);
             allChild = allChild + parseInt(child[i].value);
         }
-        // console.log("Sum_allChild", allChild);
-        // console.log("fname",fname);
-        // console.log("lname",lname);
-        // console.log(phone_no, email, room_type, checkIn, checkOut);
 
         booking_data = {
             "fname": fname,
@@ -112,6 +115,8 @@ function add_booking(event) {
             'amount' : amount,
         }
 
+        console.log(booking_data);
+        
         booking_data = JSON.stringify(booking_data);
         // console.log(booking_data)
         // var csrfToken = '{{csrf_token}}';  // This will inject the CSRF token into a JS variable
@@ -133,9 +138,7 @@ function add_booking(event) {
             // console.log(data['url']);
             window.location.href=data['url'];
             }
-
         })
-
     }
 }
 

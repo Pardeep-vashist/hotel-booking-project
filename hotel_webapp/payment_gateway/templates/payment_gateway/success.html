@@ -23,7 +23,7 @@
         </div>
         <div id="booking-confirmation-body">
             <div id="reservation-details-container">
-                <p class="subheading">Reservation Details{{user_booking_detail}}</p>
+                <p class="subheading">Reservation Details</p>
                 <div id="reservation-details" class="details-container">
                     <div class="reservation-item"><img
                             src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImdyZXkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jYWxlbmRhciI+PHBhdGggZD0iTTggMnY0Ii8+PHBhdGggZD0iTTE2IDJ2NCIvPjxyZWN0IHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgeD0iMyIgeT0iNCIgcng9IjIiLz48cGF0aCBkPSJNMyAxMGgxOCIvPjwvc3ZnPg=="
@@ -46,17 +46,22 @@
                 <p class="subheading">Price Breakdown</p>
                 <div id="price-breakdown-details" class="details-container">
                     <div>
-                        <p>{{user_booking_detail.no_of_days}} night{{user_booking_detail.no_of_days|pluralize}} x $150</p>
-                        <p>$450</p>
+                        <p>{{user_booking_detail.no_of_days}} night{{user_booking_detail.no_of_days|pluralize}} x Rs{{user_booking_detail.price_per_night}}</p>
+                        <p>Rs {{total_room_price}}</p>
+                    </div>
+                    <div>
+                        <p>{{user_booking_detail.meal_type}}</p>
+                        <p>{{user_booking_detail.meal_type.meal_price}}</p>
                     </div>
                     <div>
                         <p>Taxes and fees</p>
-                        <p>$54</p>
+                        <p></p>
                     </div>
                     <hr>
                     <div class="sub-sub-heading">
                         <p>Total</p>
-                        <p>$504</p>
+                        <!-- <p>{{user_booking_detail.payment.amount_paid}}</p> -->
+                         <p>{{payment_detail.amount_paid}}</p>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,48 @@
+{% extends 'hotel/base.html' %}
+{% load static %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'accommodation/css/front.css' %}">
+
+{% endblock head %}
+
+{% block content %}
+<div class="container-fluid" id="gallery_background">
+    <div class="overlay"></div>
+    <h2 class="gallery_title">Gallery</h2>
+</div>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <img src="{% static 'accommodation/gallery/1.jpg' %}" alt="" class="img-responsive" width="100%"
+                    id="gallery_img">
+                <img src="{% static 'accommodation/gallery/4.webp' %}" src="assets/img/4.webp" alt=""
+                    class="img-responsive" width="100%" id="gallery_img">
+                <img src="{% static 'accommodation/gallery/7.webp' %}" alt="" class="img-responsive" width="100%"
+                    id="gallery_img">
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <img src="{% static 'accommodation/gallery/2.jpg' %}" alt="" class="img-responsive" width="100%"
+                    id="gallery_img">
+                <img src="{% static 'accommodation/gallery/5.webp' %}" alt="" class="img-responsive" width="100%"
+                    id="gallery_img">
+                <img src="{% static 'accommodation/gallery/8.webp' %}" alt="" class="img-responsive" width="100%"
+                    id="gallery_img">
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <img src="{% static 'accommodation/gallery/3.webp' %}" alt="" class="img-responsive" width="100%"
+                    id="gallery_img">
+                <img src="{% static 'accommodation/gallery/6.webp' %}" alt="" class="img-responsive" width="100%"
+                    id="gallery_img">
+                <img src="{% static 'accommodation/gallery/9.jpg' %}" alt="" class="img-responsive" width="100%"
+                    id="gallery_img">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

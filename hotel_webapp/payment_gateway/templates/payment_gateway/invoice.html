@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
+    <div
+        style="background-color: black; color: #ffffff; font-size: 24px; text-align: center; padding: 10px 0; margin: 32px 25px;">
+        <p style="margin: 0;">INVOICE</p>
+    </div>
+
+    <div>
+        <div style="margin-left: 24px; margin-top: 5px; margin-bottom: 5px;">HOTEL</div>
+        <div style="margin-left: 24px; margin-top: 5px; margin-bottom: 5px;">ADDRESS</div>
+        <div style="margin-left: 24px; margin-top: 5px; margin-bottom: 5px;">CITY</div>
+        <div style="margin-left: 24px; margin-top: 5px; margin-bottom: 5px;">COUNTRY</div>
+        <div style="margin-left: 24px; margin-top: 5px; margin-bottom: 5px;">(+91) PHONE NO.</div>
+    </div>
+
+    <p>{{fname}} {% if lname is not None %}{{lname}}{% endif %}</p>
+    <div style="margin-top: 25px; padding: 50px 7%;">
+        <table style="border: 1px solid black; border-collapse: collapse; font-size: 18px; width: 100%;">
+            <thead>
+                <tr style="border: 1px solid black;">
+                    <th
+                        style="border: 1px solid black; padding: 12px; text-align: left; background-color: #f2f2f2; width: 20%;font-size: 12px;text-align: center;">
+                        Item</th>
+                    <th
+                        style="border: 1px solid black; padding: 12px; text-align: left; background-color: #f2f2f2; width: 20%;font-size: 12px;text-align: center;">
+                        No. of Days</th>
+                    <th
+                        style="border: 1px solid black; padding: 12px; text-align: left; background-color: #f2f2f2; width: 20%;font-size: 12px;text-align: center;">
+                        No. of Rooms</th>
+                    <th
+                        style="border: 1px solid black; padding: 12px; text-align: left; background-color: #f2f2f2; width: 20%;font-size: 12px;text-align: center;">
+                        Price</th>
+                    <th
+                        style="border: 1px solid black; padding: 12px; text-align: left; background-color: #f2f2f2; width: 20%;font-size: 12px;text-align: center;">
+                        Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border: 1px solid black;">
+                    <td
+                        style="border: 1px solid black; padding: 12px; text-align: center;font-size: 12px;text-align: center;">
+                        {{category}}</td>
+                    <td
+                        style="border: 1px solid black; padding: 12px; text-align: center;font-size: 12px;text-align: center;">
+                        {{no_of_days}}</td>
+                    <td
+                        style="border: 1px solid black; padding: 12px; text-align: center;font-size: 12px;text-align: center;">
+                       {{no_of_room}}</td>
+                    <td
+                        style="border: 1px solid black; padding: 12px; text-align: center;font-size: 12px;text-align: center;">
+                        {{price_per_night}}</td>
+                    <td
+                        style="border: 1px solid black; padding: 12px; text-align: center;font-size: 12px;text-align: center;">
+                        {{price_per_night}}</td>
+                </tr>
+                <tr style="border: 1px solid black;">
+                    <td
+                        style="border: 1px solid black; padding: 12px; text-align: center;font-size: 12px;text-align: center;">
+                        {{meal}}</td>
+                    <td
+                        style="border: 1px solid black; padding: 12px; text-align: center;font-size: 12px;text-align: center;">
+                        {{no_of_days}}</td>
+                    <td
+                        style="border: 1px solid black; padding: 12px; text-align: center;font-size: 12px;text-align: center;">
+                    </td>
+                    <td
+                        style="border: 1px solid black; padding: 12px; text-align: center;font-size: 12px;text-align: center;">
+                        {{meal_price}}</td>
+                    <td
+                        style="border: 1px solid black; padding: 12px; text-align: center;font-size: 12px;text-align: center;">
+                        {{meal_price}}</td>
+                </tr>
+                <tr
+                    style="border: 1px solid black; font-weight: 700; text-align: center;font-size: 12px;text-align: center;">
+                    <td style="border: 1px solid black; padding: 12px;font-size: 12px;text-align: center;">Grand Total
+                    </td>
+                    <td style="border: 1px solid black; padding: 12px;font-size: 12px;text-align: center;"></td>
+                    <td style="border: 1px solid black; padding: 12px;font-size: 12px;text-align: center;"></td>
+                    <td style="border: 1px solid black; padding: 12px;font-size: 12px;text-align: center;"></td>
+                    <td style="border: 1px solid black; padding: 12px;font-size: 12px;text-align: center;">
+                        {{grand_total}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- <img src="C:\Users\Dell\Desktop\hotel booking\hotel_webapp\accommodation\static\images\LUHRL-P011-Twin-Room.16x9.webp"> -->
+    <img
+        src="file:///C:/Users/Dell/Desktop/hotel%20booking/hotel_webapp/accommodation/static/images/LUHRL-P011-Twin-Room.16x9.webp">
+</body>
+
+</html>
