@@ -13,7 +13,7 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from .models import Payment
 from custom_user.models import CustomUser
-from Booking.models import discountPercentages,Booking,Meal_Type
+from Booking.models import discountPercentages,Booking,Meal_Type,Invoice
 from Booking.views import dynamic_price
 from hotel.models import Room_Category
 import base64
@@ -21,6 +21,7 @@ import uuid
 import json
 import hashlib
 import requests
+import os
 
 def generate_tran_id():
     # To generate a unique order number
@@ -147,7 +148,7 @@ def initiate_payment(request):
                                 'check_out':user_data['checkOut'],
                                 'totalrooms':user_data['totalrooms'],
                                 'amount':amounts['total_amount'],
-                                "room_price_per_night_offered":amounts['room_price'],
+                                "room_price_per_night_offered":amounts['each_room_price'],
                             }
                             request.session.modified = True
                             request.session.save()
@@ -222,22 +223,17 @@ def generateInvoice(new_booking,transaction_id):
         # grand_total = int(total_room_price) + int(total_meal_price)
         booking_data = {'fname':fname,'lname':lname,'category':category,'check_in':check_in,'check_out':check_out,
         'no_of_days':no_of_days,'no_of_room':no_of_room,'meal':meal,'meal_price':meal_price,
-        'grand_total':grand_total,'price_per_night':price_per_night
+        'grand_total':grand_total,'price_per_night':price_per_night,'total_room_price':no_of_days*price_per_night*no_of_room
          }
-        print(booking_data)
-        
-        # context = {
-        #     'user_payment_detail':user_payment_detail,
-        #     'user_detail':user_detail,
-        #     'user_booking_detail':user_booking_detail,
-        # }
+        # print(booking_data)
         
         html_invoice = template.render(booking_data)
         pdf_file = BytesIO()
         HTML(string=html_invoice).write_pdf(pdf_file)
-
-        filename = f'invoice_{new_booking.id}.pdf'
+        file_path = os.path.join(settings.BASE_DIR,'invoices\\')
         
+        filename = file_path+f'invoice_{new_booking.id}.pdf'
+        print(filename)
         with open(filename, 'wb+') as pdf:
             pdf.write(pdf_file.getvalue())
 
@@ -248,84 +244,70 @@ def generateInvoice(new_booking,transaction_id):
 @csrf_exempt
 def payment_callback(request,transaction_id):
     if request.method != 'POST':
-        # logger.error("Invalid request method: %s",request.method)
         return redirect('/')
 
     try:
         data = request.POST.dict()
-        # print(data)
         payment_data = Payment.objects.get(transaction_id=data['transactionId'])
         payment_data.payment_status = data['code'] 
         payment_data.payment_date = datetime.now().date()
         payment_data.save()
 
         if data.get('checksum') and data.get('code') == 'PAYMENT_SUCCESS':
-            try:
-                if payment_data.payment_status == 'PAYMENT_SUCCESS':
-                    # Create a booking only for successful payments
-                    try:
-                        room_data = request.session['booking_data']
-                        print("Room Data:",room_data)
-                        if not room_data:
-                            redirect('/')
-                        
-                        try:
-                            room_type_category = Room_Category.objects.get(id=room_data['room_type'])
-                        except Room_Category.DoesNotExist:
-                            print("Room category does not exist:", room_type_category)
-                            return redirect('/')  # Or handle the error
-                            
-                        if room_data['meal_type']:
-                            meal = Meal_Type.objects.get(id=room_data['meal_type'])
-                                
-                    except Exception as e:
-                        print("Problem in getting Booking Session Data:",e)
-        
-                    try:
-                        booking = Booking()
-                        booking.category=room_type_category
-                        booking.check_in=datetime.strptime(room_data['check_in'],"%Y-%m-%d").date()
-                        booking.check_out=datetime.strptime(room_data['check_out'],"%Y-%m-%d").date()
-                        booking.meal_type=meal
-                        booking.no_of_room=room_data['totalrooms']
-                        booking.price_per_night = room_data["room_price_per_night_offered"]
-                        # booking.room_price=room_data['amount']
-                        booking.payment=payment_data
-                        booking.save()
-                        payment_data.booking = booking
-                        payment_data.save()
-                        # print(type(booking.category),type(booking.check_in),type(booking.check_out),type(booking.meal_type),type(booking.no_of_room),type(booking.room_price),type(booking.payment))
-                        
-                    except Exception as e:
-                        print("Error in New Booking:",e)
-                        
-            except Exception as e:
-                print("Exception in Booking",e)
 
+            if payment_data.payment_status == 'PAYMENT_SUCCESS':
+                # Create a booking only for successful payments
+                room_data = request.session['booking_data']
+                print("Room Data:",room_data)
+                if not room_data:
+                    redirect('/')
 
-            user_booking_data = Payment.objects.get(transaction_id=transaction_id)
-            print("************************************")
-            print(user_booking_data)
-            context={'user_booking_detail':booking,
-            'payment_detail':payment_data,
-            'total_room_price':booking.no_of_days*booking.price_per_night,
-            }
+                room_type_category = Room_Category.objects.get(id=room_data['room_type'])
+                    
+                if room_data['meal_type']:
+                    meal = Meal_Type.objects.get(id=room_data['meal_type'])
 
-            response = render(request,'payment_gateway/success.html',context)
+                booking = Booking()
+                booking.category=room_type_category
+                booking.check_in=datetime.strptime(room_data['check_in'],"%Y-%m-%d").date()
+                booking.check_out=datetime.strptime(room_data['check_out'],"%Y-%m-%d").date()
+                booking.meal_type=meal
+                booking.no_of_room=room_data['totalrooms']
+                booking.price_per_night = room_data["room_price_per_night_offered"]
+                booking.payment=payment_data
+                booking.save()
+                payment_data.booking = booking
+                payment_data.save()
+
+                user_booking_data = Payment.objects.get(transaction_id=transaction_id)
+                context={'user_booking_detail':booking,
+                'payment_detail':payment_data,
+                'total_room_price':booking.no_of_days*booking.price_per_night*booking.no_of_room,
+                }
+
+                response = render(request,'payment_gateway/success.html',context)
             
-            invoice_pdf = generateInvoice(booking,transaction_id)
-            user_email=room_data['user_email']
-            send_email_to_user(user_email,invoice_pdf)
-            send_email_to_hotel(invoice_pdf)
-            request.session.clear()
-            return response
+                invoice_pdf = generateInvoice(booking,transaction_id)
+                booking_invoice = Invoice.objects.create(booking=booking,invoice=invoice_pdf)
+                user_email=room_data['user_email']
+                send_email_to_user(user_email,invoice_pdf)
+                send_email_to_hotel(invoice_pdf)
+                request.session.clear()
+                return response
         else:
+            data = request.POST.dict()
+            print("PAYMENT FAILED OR PENDING",data)
+            payment_data.payment_status = data['code'] 
             request.session.clear()
-            # return render(request,'failed.html')
+            response = render(request,'payment_gateway/failed.html')
+            return response
     except Exception as e:
+        data = request.POST.dict()
+        print("PAYMENT FAILED OR PENDING",data)
+        payment_data.payment_status = data['code']
         print("Error in callback",e)
         request.session.clear()
-        # return render(request,"failed.html")
+        return render(request,"payment_gateway/failed.html")
 
 
 # function for calculating amount based on parameters selectedd by user like Room Category,

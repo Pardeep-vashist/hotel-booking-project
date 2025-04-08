@@ -8,6 +8,9 @@ class CustomUser(models.Model):
     email = models.EmailField()
     phone_no = models.CharField(max_length=12,null=True,blank=True)
     created_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = 'GUEST'
 
-    def _str_(self):
+    def __str__(self):
         return f"{self.f_name} {self.l_name}"

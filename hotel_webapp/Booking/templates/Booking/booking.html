@@ -631,7 +631,7 @@
     function change_price(event) {
         date_checkIn = document.getElementById("form-checkIn-type").value;
         date_checkOut = document.getElementById("form-checkOut-type").value;
-        room_type = "{{category}}";
+        room_type = document.getElementById("form-room-type").getAttribute("value");
         rooms = document.querySelectorAll(".rooms");
         no_of_room = rooms.length;
         meal_type = document.getElementById("form-meal").value;

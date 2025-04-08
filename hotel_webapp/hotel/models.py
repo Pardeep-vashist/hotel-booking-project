@@ -28,7 +28,7 @@ class Room_Category(models.Model):
     price = models.DecimalField(
         max_digits=8, decimal_places=2, null=True, blank=True)
     total_rooms = models.IntegerField(null=True, blank=True)
-    available_rooms = models.IntegerField(null=True, blank=True)
+    # available_rooms = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.category
@@ -39,9 +39,6 @@ class Room_Category_Images(models.Model):
         Room_Category, on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='media')
 
-    # def __str__(self):
-    #     return self.image
+    def __str__(self):
+        return str(self.image)
 
-
-class room_category_relation(models.Model):
-    pass

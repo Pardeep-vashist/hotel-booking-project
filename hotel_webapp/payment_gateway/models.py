@@ -13,4 +13,4 @@ class Payment(models.Model):
     payment_date = models.DateField(null=True,blank=True)
 
     def __str__(self):
-        return str(self.amount_paid)
+        return str(self.transaction_id)

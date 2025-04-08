@@ -109,14 +109,16 @@ WSGI_APPLICATION = 'hotel_webapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
-# DATABASES["default"] = dj_database_url.parse("postgresql://myhotel_db_user:SjisK8mSicRKaUmfCruq973aiZpMOmQK@dpg-cvl8qtc9c44c73fbtr1g-a.singapore-postgres.render.com/myhotel_db")
+DATABASES = {
+    'default':dj_database_url.config(default=os.getenv("DATABASE_URL")),
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

@@ -46,8 +46,8 @@
                 <p class="subheading">Price Breakdown</p>
                 <div id="price-breakdown-details" class="details-container">
                     <div>
-                        <p>{{user_booking_detail.no_of_days}} night{{user_booking_detail.no_of_days|pluralize}} x Rs{{user_booking_detail.price_per_night}}</p>
-                        <p>Rs {{total_room_price}}</p>
+                        <p>{{user_booking_detail.no_of_days}} night{{user_booking_detail.no_of_days|pluralize}} x {{user_booking_detail.no_of_room}} room{{user_booking_detail.no_of_room|pluralize}} x <i data-lucide="indian-rupee"></i>{{user_booking_detail.price_per_night}}</p>
+                        <p><i data-lucide="indian-rupee"></i> {{total_room_price}}</p>
                     </div>
                     <div>
                         <p>{{user_booking_detail.meal_type}}</p>

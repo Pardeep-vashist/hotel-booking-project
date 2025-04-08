@@ -55,14 +55,10 @@ def show_booking_page(request):
 
 
 def increase_price(request):
-    print("\n\n\n\n\n")
-    print("the data has entered ion backend", request)
     data = json.loads(request.body.decode('utf-8'))
-    print(data)
     price = data['hotel_room_price']
     check_in_date = datetime.strptime(data['check_in_date'], "%Y-%m-%d")
 
-    # print("*************", data)
     amounts = dynamic_price(room_category=data['form_room_type'],
                             meal_category=None, check_in_date=data['check_in_date'],
                             check_out_date=data['check_out_date'], no_of_rooms=1)
@@ -72,10 +68,6 @@ def increase_price(request):
     price_dic = {
         'price': price,
     }
-
-    print("\n\n\n\n\n")
-
-    # price = json.dumps(price)
 
     return JsonResponse(price_dic)
 
@@ -98,7 +90,7 @@ def decrease_room_price(request):
 def on_date_change_price(request):
 
     user_data = json.loads(request.body.decode('utf-8'))
-
+    print(f"user data:{user_data}")
     amounts = dynamic_price(room_category=user_data['roomType'],
                             meal_category=user_data['meal_type'], check_in_date=user_data['checkIn'],
                             check_out_date=user_data['checkOut'], no_of_rooms=user_data['no_of_room'])
@@ -118,8 +110,7 @@ def meal_type(request):
 
 def dynamic_price(room_category, meal_category, check_in_date, check_out_date, no_of_rooms):
     try:
-        print(room_category, meal_category,
-              check_in_date, check_out_date, no_of_rooms)
+        # print(f"data passed for changing dates,{room_category}i,{meal_category},{check_in_date}, {check_out_date},{no_of_rooms}")
         if check_in_date != None and check_out_date != None:
             room_check_out_date = datetime.strptime(check_out_date, "%Y-%m-%d")
             room_check_in_date = datetime.strptime(check_in_date, "%Y-%m-%d")
@@ -140,14 +131,15 @@ def dynamic_price(room_category, meal_category, check_in_date, check_out_date, n
                         offer_got = discounts[i]['Discount_Percentage']
                         print("OFFER GOT:", type(offer_got))
                         break
-
+                    
             if room_category != None:
                 room_base_price = float(
-                    Room_Category.objects.get(id=room_category).price)
-                print("ROOM VASE PRICE", type(room_base_price))
+                    Room_Category.objects.get(id=int(room_category)).price)
+                print("ROOM VASE PRICE", room_base_price)
                 discount_amount = (offer_got/100)*room_base_price
+                price_after_discount = room_base_price-discount_amount
                 calculated_room_price = round(
-                    (room_base_price-discount_amount)*float(no_of_days)*float(no_of_rooms))
+                    price_after_discount*float(no_of_days)*float(no_of_rooms))
             else:
                 calculated_room_price = 0
 
@@ -162,6 +154,7 @@ def dynamic_price(room_category, meal_category, check_in_date, check_out_date, n
                 'room_price': calculated_room_price,
                 'meal_category_price': meal_category_price,
                 'total_amount': total_amount,
+                'each_room_price': price_after_discount,
             }
             print(calculated_amounts)
 
@@ -171,6 +164,7 @@ def dynamic_price(room_category, meal_category, check_in_date, check_out_date, n
             'room_price':None,
             'meal_category_price': None,
             'total_amount': None,
+            'each_room_price': None,
         }
         print("ERROR IN DYNAMIC PRICE CALCULATION:", e)
         return calculated_amounts

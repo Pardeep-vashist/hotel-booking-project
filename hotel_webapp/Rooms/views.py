@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.db.models.functions import Coalesce
-from django.db.models import Count
+from django.db.models import Count,Q,Sum
 from datetime import datetime
 from hotel.models import Room_Category
 from Booking.models import Booking
@@ -53,14 +53,17 @@ def check_avalability_of_room(request):
 def get_avaliable_rooms(room_type_id, check_in, check_out):
     # print("get_avaliable_rooms is working", room_type_id, check_in, check_out)
     try:
+        
+        # booked_count = Booking.objects.filter(Q(category=room_type_id)&Q(check_in=check_in))
+        # print(f"booked_count = {booked_count.aggregate(Sum('no_of_rooms'))}")
         booked_count = Booking.objects.filter(
             category=room_type_id,
             check_in__lt=check_out,
-            check_out__gt=check_in).aggregate(count=Coalesce(Count('no_of_rooms'), 0))
-
+            check_out__gt=check_in).aggregate(sum=Coalesce(Sum('no_of_room'),0))
+        print(Booking.objects.filter(category=room_type_id,check_in__lt=check_out,check_out__gt=check_in))
         total_rooms = Room_Category.objects.get(id=room_type_id).total_rooms
-        available_rooms = total_rooms-booked_count['count']
-        
+        available_rooms = total_rooms-booked_count['sum']
+        print(f"available_rooms ={booked_count}")
         return available_rooms
     except Exception as e:
         print("In Function GET AVALIABLE ROOM ERROR:", e)
