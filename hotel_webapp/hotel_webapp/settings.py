@@ -36,7 +36,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-ALLOWED_HOSTS = ["https://hotel-booking-project-2vp2.onrender.com"]
+ALLOWED_HOSTS = [https://hotel-booking-project-2vp2.onrender.com]
 
 # Application definition
 
