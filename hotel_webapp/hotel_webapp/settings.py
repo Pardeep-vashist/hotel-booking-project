@@ -48,13 +48,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    "debug_toolbar",
     'hotel',
     'Booking',
     'payment_gateway',
     'custom_user',
     'custom_admin'
 ]
+
+# "debug_toolbar",
 
 # "corsheaders",
 #     'hotel',
