@@ -63,7 +63,7 @@ def get_avaliable_rooms(room_type_id, check_in, check_out):
         print(Booking.objects.filter(category=room_type_id,check_in__lt=check_out,check_out__gt=check_in))
         total_rooms = Room_Category.objects.get(id=room_type_id).total_rooms
         available_rooms = total_rooms-booked_count['sum']
-        print(f"available_rooms ={booked_count}")
+        print(f"available_rooms ={available_rooms}")
         return available_rooms
     except Exception as e:
         print("In Function GET AVALIABLE ROOM ERROR:", e)

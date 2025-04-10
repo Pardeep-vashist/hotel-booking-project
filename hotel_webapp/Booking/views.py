@@ -152,7 +152,7 @@ def dynamic_price(room_category, meal_category, check_in_date, check_out_date, n
                     meal_category_price = float(Meal_Type.objects.get(
                         id=meal_category).meal_price)
                 except ObjectDoesNotExist:
-                    meal_category_price = "Meal Not Avaliable"
+                    meal_category_price = 0
                     print("Meal Not Avaliable")
             else:
                 meal_category_price = 0
