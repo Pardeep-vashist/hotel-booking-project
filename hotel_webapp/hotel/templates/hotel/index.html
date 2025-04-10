@@ -331,7 +331,9 @@
                             encode_URL = encodeURIComponent(formData_json);
                             // console.log(encode_URL)
                             redirected_url = window.location.href;
-                            window.location.href = redirected_url.slice(0,21)+'/book/room?'+encode_URL;
+                            console.log("redirected_url:",redirected_url)
+                            // redirected_url.slice(0,21)+
+                            window.location.href = '/book/room?'+encode_URL;
                         });
                     }
                     else if (data.avalibility_status === "Rooms are not avaliable") {
