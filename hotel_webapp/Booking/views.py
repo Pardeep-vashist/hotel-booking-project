@@ -14,7 +14,8 @@ def show_booking_page(request):
     try:
         requested_url = urllib.parse.unquote(request.build_absolute_uri())
         print(requested_url)
-        path = requested_url[32:]
+        # path = requested_url[32:]
+        path = requested_url[58:]
         print("pathpathpathpathpath",path)
         path = json.loads(path)
         print("pattttttttttttttttttttt",path)
