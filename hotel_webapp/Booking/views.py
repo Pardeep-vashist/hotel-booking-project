@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
 from Rooms.views import get_avaliable_rooms
 from hotel.models import Room_Category, Room_Category_Images
 from .models import discountPercentages, Meal_Type
@@ -118,19 +119,22 @@ def dynamic_price(room_category, meal_category, check_in_date, check_out_date, n
             if room_check_in_date < room_check_out_date:
                 no_of_days = (room_check_out_date-room_check_in_date).days
                 discounts = discountPercentages.objects.all().values()
+                print("****************discounts",discounts is None)
+                if len(discounts)!=0:        
+                    for i in range(len(discounts)):
+                        discounts_offered = discounts[i]['Time_Period'].split("to")
+                        applied_offer = [int(i) for i in discounts_offered]
+                        applied_offer.sort()
+                        today = datetime.now().date()
+                        in_advance_days = int(
+                            (room_check_in_date.date() - today).days)
 
-                for i in range(len(discounts)):
-                    discounts_offered = discounts[i]['Time_Period'].split("to")
-                    applied_offer = [int(i) for i in discounts_offered]
-                    applied_offer.sort()
-                    today = datetime.now().date()
-                    in_advance_days = int(
-                        (room_check_in_date.date() - today).days)
-
-                    if in_advance_days >= applied_offer[0] and in_advance_days <= applied_offer[1]:
-                        offer_got = discounts[i]['Discount_Percentage']
-                        print("OFFER GOT:", type(offer_got))
-                        break
+                        if in_advance_days >= applied_offer[0] and in_advance_days <= applied_offer[1]:
+                            offer_got = discounts[i]['Discount_Percentage']
+                            print("OFFER GOT:", type(offer_got))
+                            break
+                else:
+                    offer_got = 0
                     
             if room_category != None:
                 room_base_price = float(
@@ -142,14 +146,21 @@ def dynamic_price(room_category, meal_category, check_in_date, check_out_date, n
                     price_after_discount*float(no_of_days)*float(no_of_rooms))
             else:
                 calculated_room_price = 0
-
+    
             if meal_category != None:
-                meal_category_price = float(Meal_Type.objects.get(
-                    id=meal_category).meal_price)
+                try:
+                    meal_category_price = float(Meal_Type.objects.get(
+                        id=meal_category).meal_price)
+                except ObjectDoesNotExist:
+                    meal_category_price = "Meal Not Avaliable"
+                    print("Meal Not Avaliable")
             else:
                 meal_category_price = 0
-
-            total_amount = int(calculated_room_price + meal_category_price)
+                
+            if type(meal_category_price)!=str:
+                total_amount = int(calculated_room_price + meal_category_price)
+            else:
+                total_amount = int(calculated_room_price)
             calculated_amounts = {
                 'room_price': calculated_room_price,
                 'meal_category_price': meal_category_price,
