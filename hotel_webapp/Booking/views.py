@@ -13,7 +13,9 @@ from decimal import Decimal
 def show_booking_page(request):
     try:
         requested_url = urllib.parse.unquote(request.build_absolute_uri())
+        print("11111111111",requested_url)
         path = requested_url[32:]
+        print("11111111111",requested_url)
         path = json.loads(path)
         print(path)
         room_type = Room_Category.objects.get(id=path.get('room_type', None))
