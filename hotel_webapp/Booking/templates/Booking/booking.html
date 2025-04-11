@@ -139,7 +139,8 @@
 
                     <div class="col-md-3 book-form-field">
                         <label for="email">Email <span class="required">*</span></label>
-                        <input id="email" class="form-control" name="email" type="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
+                        <input id="email" class="form-control" name="email" type="email"
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
                     </div>
 
                     <div class="col-md-3 book-form-field">
@@ -164,11 +165,16 @@
                         <label for="form-meal">Meal</label>
                         <select onchange="getMealPrice(event)" id="form-meal" name="meal_type" class="form-select"
                             required>
+                            {% if meal_types %}
                             <!-- <option hidden>Select Meal type</option> -->
-                             {% for meal_type in all_meal_types %}
+                            {% for meal_type in all_meal_types %}
                             <option value="{{meal_type.id}}">{{meal_type}}</option>
                             {% endfor %}
-                            
+                            {% else %}
+                            <option value="">room only</option>
+                            {% endif %}
+                          
+
                         </select>
                     </div>
 

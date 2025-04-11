@@ -43,6 +43,9 @@ def initiate_payment(request):
         user_data = json.loads(request.body.decode('utf-8'))
         print("fffffffffffff",user_data)
         
+        if user_data['meal_type']=="":
+            user_data['meal_type']=None
+            
         if user_data['fname']!="" and user_data['lname']!="" and user_data['phone_no']!="" and user_data['email']!="" and user_data['checkIn']!="" and user_data['checkOut']!="" and user_data['room_type']!="" and user_data['totalrooms']!="" and  user_data['allAdults']!="" and user_data['meal_type']!="" and user_data['amount']!="":
             def check_for_space(user_data):
                 for key,item in user_data.items():
@@ -56,7 +59,7 @@ def initiate_payment(request):
                   
             amount= int(float(user_data['amount']))
             cate = user_data['room_type']
-
+            print(user_data)
             transaction_id = generate_tran_id()
             # callback_url = request.build_absolute_uri(reverse('payment/callback',args=[transaction_id]))
             callback_url = request.build_absolute_uri(reverse('payment_gateway:callback',args=[transaction_id]))
@@ -263,10 +266,12 @@ def payment_callback(request,transaction_id):
                     redirect('/')
 
                 room_type_category = Room_Category.objects.get(id=room_data['room_type'])
-                    
-                if room_data['meal_type']:
+                print("frffffffffffffffffffffff")   
+                if room_data['meal_type']!=None:
                     meal = Meal_Type.objects.get(id=room_data['meal_type'])
-
+                else:
+                    meal=None
+                print("frffffffffffffffffffffff")
                 booking = Booking()
                 booking.category=room_type_category
                 booking.check_in=datetime.strptime(room_data['check_in'],"%Y-%m-%d").date()
@@ -278,7 +283,7 @@ def payment_callback(request,transaction_id):
                 booking.save()
                 payment_data.booking = booking
                 payment_data.save()
-
+                print("##########################",booking)
                 user_booking_data = Payment.objects.get(transaction_id=transaction_id)
                 context={'user_booking_detail':booking,
                 'payment_detail':payment_data,
