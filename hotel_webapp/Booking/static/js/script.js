@@ -121,7 +121,7 @@ function add_booking(event) {
         // console.log(booking_data)
         // var csrfToken = '{{csrf_token}}';  // This will inject the CSRF token into a JS variable
 
-        base_url = 'https://'+window.location.hostname+'/payment/booking'
+        base_url = window.location.hostname+'/payment/booking'
         fetch(base_url, {
             method: 'POST',
             headers: { "X-CSRFToken": '{{csrf_token}}' },
