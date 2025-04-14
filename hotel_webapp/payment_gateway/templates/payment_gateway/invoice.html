@@ -73,10 +73,10 @@
                     </td>
                     <td
                         style="border: 1px solid black; padding: 12px; text-align: center;font-size: 12px;text-align: center;">
-                        {{meal_price}}</td>
+                        {% if meal_price %}{{meal_price}}{% else %}room_only{% endif %}</td>
                     <td
                         style="border: 1px solid black; padding: 12px; text-align: center;font-size: 12px;text-align: center;">
-                        {{meal_price}}</td>
+                        {% if meal_price %}{{meal_price}}{% else %}room_only{% endif %}</td>
                 </tr>
                 <tr
                     style="border: 1px solid black; font-weight: 700; text-align: center;font-size: 12px;text-align: center;">

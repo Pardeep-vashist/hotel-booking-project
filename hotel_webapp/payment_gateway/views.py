@@ -220,7 +220,10 @@ def generateInvoice(new_booking,transaction_id):
         price_per_night = user_booking_detail.price_per_night
         grand_total = user_booking_detail.payment.amount_paid
         meal = user_booking_detail.meal_type
-        meal_price = user_booking_detail.meal_type.meal_price
+        if meal != None:
+            meal_price = user_booking_detail.meal_type.meal_price
+        else:
+             meal_price = "----"
         total_meal_price = meal_price
 
         # grand_total = int(total_room_price) + int(total_meal_price)
@@ -292,11 +295,11 @@ def payment_callback(request,transaction_id):
 
                 response = render(request,'payment_gateway/success.html',context)
             
-                invoice_pdf = generateInvoice(booking,transaction_id)
-                booking_invoice = Invoice.objects.create(booking=booking,invoice=invoice_pdf)
-                user_email=room_data['user_email']
-                send_email_to_user(user_email,invoice_pdf)
-                send_email_to_hotel(invoice_pdf)
+                # invoice_pdf = generateInvoice(booking,transaction_id)
+                # booking_invoice = Invoice.objects.create(booking=booking,invoice=invoice_pdf)
+                # user_email=room_data['user_email']
+                # send_email_to_user(user_email,invoice_pdf)
+                # send_email_to_hotel(invoice_pdf)
                 request.session.clear()
                 return response
         else:
