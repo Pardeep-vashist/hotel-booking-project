@@ -58,7 +58,8 @@ def initiate_payment(request):
                 return JsonResponse({'error':"contain space"})
                   
             amount= int(float(user_data['amount']))
-            cate = user_data['room_type']
+            cate = "/"
+            print("catecatecatecatecatecatecatecatecatecatecate",cate)
             print(user_data)
             transaction_id = generate_tran_id()
             # callback_url = request.build_absolute_uri(reverse('payment/callback',args=[transaction_id]))
