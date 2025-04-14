@@ -158,7 +158,7 @@ def initiate_payment(request):
                             request.session.save()
                             # print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr*5",request.session['booking_data'])
 
-                        except Exception in e:
+                        except Exception as e:
                             print("Error in creating Session:",e)
                             
                     except Exception as e:
