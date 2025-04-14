@@ -87,10 +87,12 @@ def initiate_payment(request):
                 "request" : data,
             }
             print("final payloadfinal payloadfinal payloadfinal payloadfinal payload",final_payload)
+            print("checksumchecksumchecksumchecksum",checksum)
             headers = {
                 "access-control-allow-origin" : "*",
                 'Content-Type' : 'application/json',
-                'X-VERIFY':checksum
+                'X-VERIFY':checksum,
+                'accept': 'application/json'
             }
 
             # all_categories = Room_Category.ROOM_CATEGORIES
