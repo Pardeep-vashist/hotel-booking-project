@@ -26,14 +26,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT'))
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 ALLOWED_HOSTS = ['hotel-booking-project-2vp2.onrender.com','127.0.0.1']
@@ -174,10 +174,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # print(env_file)
 # print("\n\n\n\n")
 
-PHONEPE_MERCHANT_ID = os.getenv('PHONEPE_MERCHANT_ID')
-PHONEPE_MERCHANT_KEY = os.getenv('PHONEPE_MERCHANT_KEY')
-PHONEPE_INITIATE_PAYMENT_URL = os.getenv('PHONEPE_INITIATE_PAYMENT_URL')
-SALT_INDEX = os.getenv('SALT_INDEX')
+PHONEPE_MERCHANT_ID = os.environ.get('PHONEPE_MERCHANT_ID')
+PHONEPE_MERCHANT_KEY = os.environ.get('PHONEPE_MERCHANT_KEY')
+PHONEPE_INITIATE_PAYMENT_URL = os.environ.get('PHONEPE_INITIATE_PAYMENT_URL')
+SALT_INDEX = os.environ.get('SALT_INDEX')
 
 INTERNAL_IPS = [
     '127.0.0.1',
