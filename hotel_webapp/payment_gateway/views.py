@@ -86,7 +86,7 @@ def initiate_payment(request):
             final_payload = {
                 "request" : data,
             }
-
+            print("final payloadfinal payloadfinal payloadfinal payloadfinal payload",final_payload)
             headers = {
                 "access-control-allow-origin" : "*",
                 'Content-Type' : 'application/json',

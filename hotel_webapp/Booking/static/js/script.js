@@ -129,7 +129,7 @@ function add_booking(event) {
         }).then(response =>
             response.json()
         ).then(data => {
-            // console.log(data);
+            console.log(data);
             if (data.reload){
                 // console.log()
                 window.location.reload()
