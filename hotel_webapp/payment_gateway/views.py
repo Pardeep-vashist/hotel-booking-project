@@ -103,20 +103,16 @@ def initiate_payment(request):
                 amounts = dynamic_price(room_category=user_data['room_type'],meal_category=user_data['meal_type'],
                 check_in_date=user_data['checkIn'],check_out_date=user_data['checkOut'],no_of_rooms=user_data['totalrooms'])
 
-                # print("Amounts Returned",amounts,amounts['total_amount']==int(user_data['amount']))
-                for key,value in amounts.items():
-                    if value is None:
-                        return JsonResponse({'error':"DYNAMIC PRICE AMOUNTS CONTAIN NONE VALUES",'reload':True})        
+                # for key,value in amounts.items():
+                #     if value is None:
+                #         return JsonResponse({'error':"DYNAMIC PRICE AMOUNTS CONTAIN NONE VALUES",'reload':True})        
 
                 if int(user_data['allAdults'])<1:
                     return JsonResponse({'error':"Adults should be greater ",'reload':True})
 
-                # print("dsfffdfdf",int(amounts['total_amount'])!=int(user_data['amount']))
                 if int(amounts['total_amount'])!=int(user_data['amount']):
                     print("dddddddddPAYMENT MISMATCH")
                     return JsonResponse({'error':"Payment amount mismatch",'reload':True})
-                
-                # return JsonResponse({'error':"Payment amount mismatch",'reload':True})
 
             except Exception as e:
                 print(f"Error In Dynamic Price we got:{e}")
